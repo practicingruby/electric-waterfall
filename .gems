@@ -2,3 +2,5 @@ sinatra
 activerecord
 sqlite3-ruby
 mustache
+haml
+rdiscount
