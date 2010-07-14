@@ -101,8 +101,7 @@ __END__
   %p
     Body:
     %br
-    %textarea{:name=>"letter[body]", :rows => 15, :cols => 100}
-      = @letter.body
+    %textarea{:name=>"letter[body]", :rows => 15, :cols => 100}= @letter.body
 
   %input{:type => :submit, :value => "Save Changes"}
 
