@@ -1,4 +1,4 @@
-require 'koko'
+require 'electric-waterfall'
 
 namespace :db do
   desc "migrate your database"

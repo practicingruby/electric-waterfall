@@ -1,2 +1,2 @@
-require "koko"
+require "electric-waterfall"
 run Sinatra::Application
