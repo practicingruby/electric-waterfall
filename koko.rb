@@ -117,7 +117,6 @@ __END__
     %input{:name=>"template[name]", :value=>@template.name}
   %p 
     Source:
-    %textarea{:name=>"template[source]", :rows => 15, :cols => 100}
-      = @template.source
+    %textarea{:name=>"template[source]", :rows => 15, :cols => 100}= @template.source
 
   %input{:type => :submit, :value => "Save Changes"}
