@@ -1,0 +1,10 @@
+%h1 Templates
+
+%p
+  %a{:href=>"templates/new"} Create a new template
+
+%hr
+
+- @templates.each do |template|
+  %p
+    %a{:href=>"templates/#{template.id}/edit"}= template.name

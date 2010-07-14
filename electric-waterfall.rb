@@ -14,6 +14,11 @@ require "#{dir}/models"
 #  [username, password] == ['a+c', 'a+c1337']
 #end
 
+get "/letters" do
+  @letters = Letter.all
+  haml :"letters/index"
+end
+
 get "/letters/:id/edit" do
   @letter = Letter.find(params[:id])
   haml :edit_letter
@@ -38,6 +43,11 @@ put "/letters/:id" do
   letter = Letter.find(params["id"])
   letter.update_attributes(params["letter"])
   redirect "/letters/#{letter.id}"
+end
+
+get "/templates" do
+  @templates = Template.all
+  haml :"templates/index"
 end
 
 get "/templates/new" do
