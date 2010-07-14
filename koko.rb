@@ -5,21 +5,13 @@ require 'active_record'
 require "mustache"
 require "rdiscount"
 
-dbconfig = YAML.load(File.read('config/database.yml'))
-ActiveRecord::Base.establish_connection(dbconfig[ENV['SINATRA_ENV'] || 'production'])
+dir = File.dirname(__FILE__)
 
-class Template < ActiveRecord::Base
-end
+require "#{dir}/database_setup"
+require "#{dir}/models"
 
-class Letter < ActiveRecord::Base 
-  belongs_to :template
-
-  def render
-    m = Mustache.new
-    m.template = template.source
-    m[:body] = RDiscount.new(body).to_html
-    m.render
-  end
+use Rack::Auth::Basic do |username, password|
+  [username, password] == ['a+c', 'a+c1337']
 end
 
 get "/letters/:id/edit" do
