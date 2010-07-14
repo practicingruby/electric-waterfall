@@ -1,0 +1,14 @@
+%h1 Letters
+
+%p
+  %a{:href=>"letters/new"} Create a new letter
+
+%hr
+
+- @letters.each do |letter|
+  %p
+    = letter.name
+    |
+    %a{:href=>"letters/#{letter.id}/edit"} Edit
+    |
+    %a{:href=>"letters/#{letter.id}"} View
