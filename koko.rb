@@ -10,9 +10,9 @@ dir = File.dirname(__FILE__)
 require "#{dir}/database_setup"
 require "#{dir}/models"
 
-use Rack::Auth::Basic do |username, password|
-  [username, password] == ['a+c', 'a+c1337']
-end
+#use Rack::Auth::Basic do |username, password|
+#  [username, password] == ['a+c', 'a+c1337']
+#end
 
 get "/letters/:id/edit" do
   @letter = Letter.find(params[:id])
