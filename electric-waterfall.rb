@@ -10,9 +10,27 @@ dir = File.dirname(__FILE__)
 require "#{dir}/database_setup"
 require "#{dir}/models"
 
-#use Rack::Auth::Basic do |username, password|
-#  [username, password] == ['a+c', 'a+c1337']
-#end
+SECRET = Digest::SHA1.hexdigest("A+C")
+
+
+before do
+  protected_route unless request.path =~ %r{^/letters/\d+/#{SECRET}}
+end
+
+
+helpers do
+  def protected_route
+    unless authorized?
+      response['WWW-Authenticate'] = %(Basic realm="Testing HTTP Auth")
+      throw(:halt, [401, "Not authorized\n"])
+    end
+  end
+
+  def authorized?
+    @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+    @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == ['a+c', 'a+c1337']
+  end
+end
 
 get "/letters/:id/edit" do
   @letter = Letter.find(params[:id])
@@ -24,20 +42,20 @@ get "/letters/new" do
   haml :edit_letter
 end
 
-get "/letters/:id" do 
+get "/letters/:id/#{SECRET}" do 
   Letter.find(params[:id]).render
 end
 
 post "/letters" do
   letter = Letter.create(params["letter"])
 
-  redirect "/letters/#{letter.id}"
+  redirect "/letters/#{letter.id}/#{SECRET}"
 end
 
 put "/letters/:id" do
   letter = Letter.find(params["id"])
   letter.update_attributes(params["letter"])
-  redirect "/letters/#{letter.id}"
+  redirect "/letters/#{letter.id}/#{SECRET}"
 end
 
 get "/templates/new" do
