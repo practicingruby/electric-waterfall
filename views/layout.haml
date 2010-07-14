@@ -1,0 +1,10 @@
+%html
+  %head
+    %title Electric Waterfall
+  
+    %link{:rel=>'stylesheet',:href=>'/css/default.css',:type=>'text/css'}
+    
+  %body
+    = haml(:menu, :layout => false)
+    
+    #main= yield

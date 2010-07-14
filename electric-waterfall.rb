@@ -94,6 +94,10 @@ put "/templates/:id" do
   redirect "/templates/#{template.id}/edit"
 end
 
+get '/css/default.css' do
+  sass :stylesheet
+end
+
 helpers do
   def url_for(route, object)
     if object.new_record?
