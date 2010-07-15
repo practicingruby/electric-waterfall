@@ -10,5 +10,5 @@
     = letter.name
     %span.controls
       %a{:href=>"letters/#{letter.id}/edit"} Edit
-      %a{:href=>"letters/#{letter.id}"} View
+      %a{:href=>"letters/#{letter.id}/#{SECRET}"} View
       = link_to_delete("letters/#{letter.id}")
