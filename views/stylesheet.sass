@@ -3,15 +3,20 @@
   padding: 0
 
 body
-  background-color: 444444
+  background-color: silver
   font-family: "Gill Sans","Tacoma","Arial",sans-serif
 
 p
   padding-top: 0.75em
   padding-bottom: 0.75em
+  
+a
+  color: #000
+  &:hover
+    color: #7ED0E0
 
 #main  
-  background-color: ffffff
+  background-color: #fff
   margin: 0 auto
   border: 1px solid silver
   width: 760px
@@ -20,10 +25,10 @@ p
   -moz-box-shadow: 0px 3px 10px #000
   
 #menu
-  background-color: #77858F
-  color: silver
+  background-color: #58595B
+  color: #7ED0E0
   margin: 0 auto
-  margin-top: 10px
+  margin-top: 20px
   width: 760px
   padding: 5px 25px
   -moz-border-radius-topleft: 10px
@@ -40,4 +45,15 @@ p
     text-decoration: none
     padding: 0 5px
     &:hover
-      color: #3434BC
+      color: #7ED0E0
+      
+form
+  textarea
+    width: 100%
+    font-family: "Gill Sans","Tacoma","Arial",sans-serif
+    padding: 2px 5px
+    
+span.controls
+  float: right
+  a
+    margin-left: 5px

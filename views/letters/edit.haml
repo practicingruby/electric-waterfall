@@ -1,0 +1,20 @@
+%h1 Edit Letter
+
+%form{:action => url_for('/letters', @letter), :method => :post}  
+  = set_http_verb(@letter)
+
+  %p
+    Name:
+    %input{:name=>"letter[name]", :value=>@letter.name}
+  %p 
+    Template:
+    %select{:name => "letter[template_id]"}
+      - ::Template.all.each do |t|
+        %option{:value => t.id}= t.name
+      
+  %p
+    Body:
+    %br
+    %textarea{:name=>"letter[body]", :rows => 15, :cols => 100}= @letter.body
+
+  %input{:type => :submit, :value => "Save Changes"}

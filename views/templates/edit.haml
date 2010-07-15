@@ -1,0 +1,13 @@
+%h1 Edit Template
+
+%form{:action => url_for('/templates', @template), :method => :post}  
+  = set_http_verb(@template)
+
+  %p
+    Name:
+    %input{:name=>"template[name]", :value=>@template.name}
+  %p 
+    Source:
+    %textarea{:name=>"template[source]", :rows => 15, :cols => 100}= @template.source
+
+  %input{:type => :submit, :value => "Save Changes"}

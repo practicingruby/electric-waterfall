@@ -30,21 +30,29 @@ helpers do
     @auth ||=  Rack::Auth::Basic::Request.new(request.env)
     @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == ['a+c', 'a+c1337']
   end
+  
+  def render_letters
+    @letters = Letter.all
+    haml :"letters/index"
+  end
+end
+
+get "/" do
+  render_letters
 end
 
 get "/letters" do
-  @letters = Letter.all
-  haml :"letters/index"
+  render_letters
 end
 
 get "/letters/:id/edit" do
   @letter = Letter.find(params[:id])
-  haml :edit_letter
+  haml :"/letters/edit"
 end
 
 get "/letters/new" do
   @letter = Letter.new
-  haml :edit_letter
+  haml :"/letters/edit"
 end
 
 get "/letters/:id/#{SECRET}" do 
@@ -70,7 +78,7 @@ end
 
 get "/templates/new" do
   @template = Template.new
-  haml :edit_template
+  haml :"/templates/edit"
 end
 
 get "/templates/:id" do 
@@ -79,7 +87,7 @@ end
 
 get "/templates/:id/edit" do
   @template = Template.find(params["id"])
-  haml :edit_template
+  haml :"/templates/edit"
 end
 
 post "/templates" do
@@ -113,41 +121,3 @@ helpers do
     end
   end
 end
-
-__END__
-@@ edit_letter
-%h1 Edit Letter
-
-%form{:action => url_for('/letters', @letter), :method => :post}  
-  = set_http_verb(@letter)
-
-  %p
-    Name:
-    %input{:name=>"letter[name]", :value=>@letter.name}
-  %p 
-    Template:
-    %select{:name => "letter[template_id]"}
-      - ::Template.all.each do |t|
-        %option{:value => t.id}= t.name
-      
-  %p
-    Body:
-    %br
-    %textarea{:name=>"letter[body]", :rows => 15, :cols => 100}= @letter.body
-
-  %input{:type => :submit, :value => "Save Changes"}
-
-@@ edit_template
-%h1 Edit Template
-
-%form{:action => url_for('/templates', @template), :method => :post}  
-  = set_http_verb(@template)
-
-  %p
-    Name:
-    %input{:name=>"template[name]", :value=>@template.name}
-  %p 
-    Source:
-    %textarea{:name=>"template[source]", :rows => 15, :cols => 100}= @template.source
-
-  %input{:type => :submit, :value => "Save Changes"}
