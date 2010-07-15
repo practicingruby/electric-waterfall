@@ -71,6 +71,12 @@ put "/letters/:id" do
   redirect "/letters/#{letter.id}/#{SECRET}"
 end
 
+delete "/letters/:id" do
+  @letter = Letter.find(params["id"])
+  @letter.destroy
+  redirect "/letters"
+end
+
 get "/templates" do
   @templates = Template.all
   haml :"templates/index"
@@ -88,6 +94,12 @@ end
 get "/templates/:id/edit" do
   @template = Template.find(params["id"])
   haml :"/templates/edit"
+end
+
+delete "/templates/:id" do
+  @template = Template.find(params["id"])
+  @template.destroy
+  redirect "/templates"
 end
 
 post "/templates" do
@@ -119,5 +131,13 @@ helpers do
     unless object.new_record? 
       '<input type="hidden" name="_method" value="put">'
     end
+  end
+  
+  def link_to_delete(path)
+    %{<a href="#{path}" onclick="if (confirm('Are you sure?')) { var f = document.createElement('form');
+      f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;
+      var m = document.createElement('input'); m.setAttribute('type', 'hidden'); m.setAttribute('name', '_method');
+      m.setAttribute('value', 'delete'); f.appendChild(m);f.submit(); };return false;">Delete</a>
+    }
   end
 end

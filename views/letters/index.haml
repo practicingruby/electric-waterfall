@@ -11,3 +11,4 @@
     %span.controls
       %a{:href=>"letters/#{letter.id}/edit"} Edit
       %a{:href=>"letters/#{letter.id}"} View
+      = link_to_delete("letters/#{letter.id}")

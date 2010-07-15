@@ -7,4 +7,7 @@
 
 - @templates.each do |template|
   %p
-    %a{:href=>"templates/#{template.id}/edit"}= template.name
+    = template.name
+    %span.controls
+      %a{:href=>"templates/#{template.id}/edit"} Edit
+      = link_to_delete("templates/#{template.id}")
